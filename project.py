@@ -4,6 +4,7 @@ Gráficas por Computadora
 """ 
 #import libs 
 import struct
+import os 
 from libs import Bitmap
 from libs import word
 from libs import getColor
@@ -46,12 +47,8 @@ def glVertex(x,y):
 def glFinish():
     img.writeFile("popo.bmp")
 
-glCreateWindow(700,500)
-
-"""
-option = true 
-while option: 
-    print('Menú de instrucciones')
+def menu(): 
+    os.system('cls')
     print('1. Por renderizar una imagen negra con un punto blanco en una ubicación random dentro de la imagen.')
     print('2. Por renderizar una imagen negra con un punto blanco en cada esquina')
     print('3. Por renderizar un cubo de 100 pixeles en el centro de su imagen')
@@ -60,26 +57,63 @@ while option:
     print('6. Por llenar su imagen entera de puntos blancos y negros (las posibilidades de que un punto sea blanco o negro son de 50%)')
     print ('7. Por llenar su imagen entera de puntos de colores random')
     print ('8. Por crear una escena de un cielo con estrellas ')
+    print ('9. Salir')
 
-  """  
-#1 
+glCreateWindow(700,500)
 
-""" 
-glClearColor(0,0,0)
-glClear()
-glViewPort(0,0,699,499)
-glColor(1,1,1)
-glVertex(0,1)
-""" 
-#2 
-glClearColor(0,0,0)
-glClear()
-glViewPort(0,0,699,499)
-glColor(1,1,1)
-glVertex(-1,-1)
-glVertex(-1,1)
-glVertex(1,-1)
-glVertex(1,1)
+option = True 
+while option: 
+    menu()
+    menuOption = input("Ingresa una opción del menú  >> ")
+
+    if menuOption == "1":
+        print("----")
+        input ("Has ingresado a la opción 1...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
+        glViewPort(0,0,699,499)
+        glColor(1,1,1)
+        glVertex(0,1)
+        glFinish()
+
+    elif menuOption == "2":
+        print("----")
+        input ("Has ingresado a la opción 2...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
+        glViewPort(0,0,699,499)
+        glColor(1,1,1)
+        glVertex(-1,-1)
+        glVertex(-1,1)
+        glVertex(1,-1)
+        glVertex(1,1)
+        glFinish()
+    
+    elif menuOption == "3":
+        print("----")
+        input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
+    
+    elif menuOption == "4":
+        print("----")
+        input ("Has ingresado a la opción 4...\npulsa una tecla para continuar")
+    
+    elif menuOption == "5":
+        print("----")
+        input ("Has ingresado a la opción 5...\npulsa una tecla para continuar")
+    
+    elif menuOption == "6":
+        print("----")
+        input ("Has ingresado a la opción 6...\npulsa una tecla para continuar")
+    
+    elif menuOption == "7":
+        print("----")
+        input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
+    
+    elif menuOption == "9":
+        break 
+    else: 
+        print("")
+        input("No has ingresado ninguna opción correcta...\npulsa una tecla para continuar")
+    
 
 
-glFinish()
