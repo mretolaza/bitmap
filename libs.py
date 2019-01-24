@@ -109,7 +109,7 @@ class Bitmap(object):
         if self.vpHeight !=  0 or self.vpWidth != 0:
             localX = round((x+1)*((self.vpWidth)/2) + self.vpX)  
             localY = round((y+1)* ((self.vpHeight)/2) + self.vpY)
-            self.point(x,y)
+            self.point(localX,localY)
         else: 
             print('Debe de ejecutar glViewPort para obtener un área a gráficar')
 
@@ -138,3 +138,10 @@ class Bitmap(object):
     def lineVertical(self,x,y,lenght,color): 
         for j in range(lenght):
             self.vertex(x,y + j)
+
+    # Create square 
+    def square(self, x,y):
+        for i in range (x, x+200):
+            for j in range (y,y+200):
+                self.vertex(x + i ,y + j)
+    #
