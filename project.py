@@ -66,7 +66,7 @@ while option:
     menu()
     menuOption = input("Ingresa una opción del menú  >> ")
 
-    if menuOption == "1":
+    if menuOption == 1:
         print("----")
         input ("Has ingresado a la opción 1...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
@@ -76,7 +76,7 @@ while option:
         glVertex(0,1)
         glFinish()
 
-    elif menuOption == "2":
+    elif menuOption == 2:
         print("----")
         input ("Has ingresado a la opción 2...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
@@ -89,27 +89,27 @@ while option:
         glVertex(1,1)
         glFinish()
     
-    elif menuOption == "3":
+    elif menuOption == 3:
         print("----")
         input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
     
-    elif menuOption == "4":
+    elif menuOption == 4:
         print("----")
         input ("Has ingresado a la opción 4...\npulsa una tecla para continuar")
     
-    elif menuOption == "5":
+    elif menuOption == 5:
         print("----")
         input ("Has ingresado a la opción 5...\npulsa una tecla para continuar")
     
-    elif menuOption == "6":
+    elif menuOption == 6:
         print("----")
         input ("Has ingresado a la opción 6...\npulsa una tecla para continuar")
     
-    elif menuOption == "7":
+    elif menuOption == 7:
         print("----")
         input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
     
-    elif menuOption == "9":
+    elif menuOption == 9:
         break 
     else: 
         print("")
