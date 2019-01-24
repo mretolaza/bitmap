@@ -32,7 +32,7 @@ def glViewPort(x,y,widht, height):
 
 #Get Color 
 def glColor(r,g,b):
-    getColor(0,1,0)
+    getColor(1,1,1)
 
 #Init canvas with new color 
 def glClearColor(r,g,b):
@@ -46,10 +46,40 @@ def glVertex(x,y):
 def glFinish():
     img.writeFile("popo.bmp")
 
-glCreateWindow(600,400)
+glCreateWindow(700,500)
+
+"""
+option = true 
+while option: 
+    print('Menú de instrucciones')
+    print('1. Por renderizar una imagen negra con un punto blanco en una ubicación random dentro de la imagen.')
+    print('2. Por renderizar una imagen negra con un punto blanco en cada esquina')
+    print('3. Por renderizar un cubo de 100 pixeles en el centro de su imagen')
+    print('4. Por renderizar líneas blancas en toda la orilla de su imagen (4 lineas)')
+    print('5. Por renderizar una línea blanca en diagonal por el centro de su imagen.')
+    print('6. Por llenar su imagen entera de puntos blancos y negros (las posibilidades de que un punto sea blanco o negro son de 50%)')
+    print ('7. Por llenar su imagen entera de puntos de colores random')
+    print ('8. Por crear una escena de un cielo con estrellas ')
+
+  """  
+#1 
+
+""" 
 glClearColor(0,0,0)
 glClear()
-glViewPort(0,0,599,399)
+glViewPort(0,0,699,499)
 glColor(1,1,1)
 glVertex(0,1)
+""" 
+#2 
+glClearColor(0,0,0)
+glClear()
+glViewPort(0,0,699,499)
+glColor(1,1,1)
+glVertex(-1,-1)
+glVertex(-1,1)
+glVertex(1,-1)
+glVertex(1,1)
+
+
 glFinish()
