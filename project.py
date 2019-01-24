@@ -59,7 +59,7 @@ def menu():
     print ('8. Por crear una escena de un cielo con estrellas ')
     print ('9. Salir')
 
-glCreateWindow(700,500)
+glCreateWindow(600,400)
 
 option = True 
 while option: 
@@ -71,7 +71,7 @@ while option:
         input ("Has ingresado a la opción 1...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
-        glViewPort(0,0,699,499)
+        glViewPort(0,0,599,399)
         glColor(1,1,1)
         glVertex(0,1)
         glFinish()
@@ -81,7 +81,7 @@ while option:
         input ("Has ingresado a la opción 2...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
-        glViewPort(0,0,699,499)
+        glViewPort(0,0,599,399)
         glColor(1,1,1)
         glVertex(-1,-1)
         glVertex(-1,1)
@@ -92,22 +92,34 @@ while option:
     elif menuOption == "3":
         print("----")
         input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
+        glViewPort(0,0,300,300)
+        glColor(1,1,1)
     
     elif menuOption == "4":
         print("----")
         input ("Has ingresado a la opción 4...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
     
     elif menuOption == "5":
         print("----")
         input ("Has ingresado a la opción 5...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
     
     elif menuOption == "6":
         print("----")
         input ("Has ingresado a la opción 6...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
     
     elif menuOption == "7":
         print("----")
         input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
     
     elif menuOption == "9":
         break 
