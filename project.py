@@ -162,9 +162,6 @@ while option:
         glClear()
         glViewPort(0, 0, 399, 399)
         glColor(255, 255, 255)
-        # glVertex(-1, -0.09)
-        # glVertex(-1, -1)
-        # glVertex(1, -1)
         # ---------
         glVertex(0, 1)
         glVertex(0, 0.9)
@@ -208,7 +205,6 @@ while option:
         glVertex(1, 0.14)
         # -------------
         glVertex(0.5, 0.5)
-        # img.square(100)
         glFinish()
 
     elif menuOption == "0":
