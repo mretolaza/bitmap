@@ -1,0 +1,196 @@
+"""Librerías Internas, Escena
+""" 
+
+import struct
+import random
+from math import sqrt
+from math import ceil
+from random import randint
+
+def char(c):
+    return struct.pack("=c", c.encode('ascii'))
+
+def word(c):
+    return struct.pack("=h", c)
+
+def dword(c):
+    return struct.pack("=l", c)
+
+def getColor(r, g, b):
+    return bytes([b, g, r])
+
+class Bitmap(object):
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.framebuffer = []
+        self.r = 0
+        self.g = 0
+        self.b = 0 
+        self.vpWidth = 0
+        self.vpHeight = 0
+        self.vpX = 0 
+        self.vpY = 0 
+        self.vr = 0
+        self.vg = 0
+        self.vb = 0
+        self.clear()
+    
+    #structure image file 
+    def writeFile(self, filename):
+        f = open(filename, "wb")
+        # estandar
+        f.write(char('B'))
+        f.write(char('M'))
+        # file size
+        f.write(dword(14 + 40 + self.width * self.height * 3))
+        # reserved
+        f.write(dword(0))
+        # data offset
+        f.write(dword(54))
+        # header size
+        f.write(dword(40))
+        # width
+        f.write(dword(self.width))
+        # height
+        f.write(dword(self.height))
+        # planes
+        f.write(word(1))
+        # bits per pixel
+        f.write(word(24))
+        # compression
+        f.write(dword(0))
+        # image size
+        f.write(dword(self.width * self.height * 3))
+        # x pixels per meter
+        f.write(dword(0))
+        # y pixels per meter
+        f.write(dword(0))
+        # number of colors
+        f.write(dword(0))
+        # important colors
+        f.write(dword(0))
+        # image data
+        for x in range(self.height):
+            for y in range(self.width):
+                f.write(self.framebuffer[x][y])
+        # close file
+        f.close()
+    
+    def setColor(self, r,g,b): 
+        self.vr = r
+        self.vg = g 
+        self.vb = b 
+
+    # Clear image 
+    def clear(self):
+        self.framebuffer = [
+            [
+                #show background color 
+                getColor(self.r,self.g,self.b) for x in range(self.width)
+            ]
+            for y in range(self.height)
+        ]
+
+    #clear the canvas with a new color 
+    def clearColor(self, newR, newG, newB):
+        self.r = ceil(newR*255)
+        self.g = ceil(newG*255)
+        self.b = ceil(newB*255) 
+
+    # get dimension image (begin of glViewPort)
+    def viewPort(self, x, y, width, height):
+        if height <= 0 or width <= 0:
+            print('Error, el Largo y el Ancho de la imágen deben de ser valores mayores a 0')
+            input()
+        elif x< 0 or y < 0 or x > self.width or y > self.height:
+            print('Error, Las coordenadas ingresadas (x,y) deben de ser mayores a 0. Además deben de ser menores al ancho y largo de la imagen')
+            input()
+        else:  
+            self.vpWidth = width
+            self.vpHeight = height
+            self.vpX = x 
+            self.vpY = y 
+
+    # create new canvas to draw image 
+    def vertex(self, x, y): 
+        pointSize = 5
+        if self.vpHeight !=  0 or self.vpWidth != 0:
+            xx = x * ((self.vpWidth - pointSize) / 2)
+            yy = y * ((self.vpHeight - pointSize) / 2)
+            localX = self.vpX+int((self.vpWidth - pointSize)/2)+int(xx)
+            localY = self.vpY+int((self.vpHeight - pointSize)/2)+int(yy)
+            print(x, y, localX, localY)
+            for x in range(pointSize):
+                for y in range(pointSize):
+                    self.point(localX + x, localY + y)
+        else: 
+            print('Debe de ejecutar glViewPort para obtener un área a gráficar')
+
+    # Create point in framebuffer
+    def point(self, x, y):
+        self.framebuffer[y][x] = getColor(self.vr, self.vg, self.vb)
+  
+    # stars
+    def stars(self, numOfStars):
+        loop = 0
+        while(loop < numOfStars):
+            loop = loop + 1
+            size = randint(1, 3)
+            x = randint(0, self.vpWidth - size - 2)
+            y = randint(0, self.vpHeight - size - 2)
+            self.printStar(x, y, size)
+
+    def printStar(self, x, y, size):
+        for cordX in range(size):
+            for cordY in range(size):
+                self.point(cordX + x, cordY + y)
+      # draw left line
+    def drawLeftLine(self,padding):
+        x = padding
+        for y in range(padding, self.vpHeight - padding):
+            self.point(x, y)
+    
+    # draw rigth line
+    def drawRightLine(self,padding):
+        x = self.vpWidth - padding
+        for y in range(padding, self.vpHeight - padding):
+            self.point(x, y)
+
+      # draw top line
+    def drawTopLine(self,padding):
+        y = padding
+        for x in range(padding, self.vpWidth - padding):
+            self.point(x, y)
+
+    # draw botton line
+    def drawBottonLine(self,padding):
+        y = self.vpHeight - padding
+        for x in range(padding, self.vpWidth - padding):
+            self.point(x, y)
+    
+     # Create square 
+    def squareCenter(self, size):
+        self.vr = 220 
+        self.vg = 20 
+        self.vb = 60
+        cordX = int((self.vpWidth / 2)) - int(size / 2)
+        cordY = int((self.vpWidth / 2)) - int(size / 2)
+        for x in range (cordX, cordX + size):
+            for y in range (cordY, cordY + size):
+                self.point(x,y)
+    
+    def square(self, cordX , cordY , size):
+        self.vr = 255
+        self.vg = 255
+        self.vb = 153
+        for x in range (cordX, cordX + size):
+            for y in range (cordY, cordY + size):
+                self.point(x,y)
+
+    def nave(self): 
+        self.squareCenter(10)
+        self.square(55,41,8)
+        self.square(-42,20,6)  
+        self.square(20,40,6)
+        self.square(20,-60,6)     
