@@ -2,12 +2,13 @@
 María Mercedes Retolaza Reyna, 16339
 Gráficas por Computadora  
 """ 
-#import libs 
+import libs 
 import struct
 import os 
 from libs import Bitmap
 from libs import word
 from libs import getColor
+from libs import randint
 
 
 #Objet to draw 
@@ -33,7 +34,7 @@ def glViewPort(x,y,widht, height):
 
 #Get Color 
 def glColor(r,g,b):
-    getColor(255,255,255)
+    img.setColor(r,g,b)
 
 #Init canvas with new color 
 def glClearColor(r,g,b):
@@ -45,10 +46,11 @@ def glVertex(x,y):
 
 #Show new image 
 def glFinish():
-    img.writeFile("popo.bmp")
+    img.writeFile("img.bmp")
 
 def menu(): 
     os.system('cls')
+    print ('0. Salir')
     print('1. Por renderizar una imagen negra con un punto blanco en una ubicación random dentro de la imagen.')
     print('2. Por renderizar una imagen negra con un punto blanco en cada esquina')
     print('3. Por renderizar un cubo de 100 pixeles en el centro de su imagen')
@@ -57,9 +59,9 @@ def menu():
     print('6. Por llenar su imagen entera de puntos blancos y negros (las posibilidades de que un punto sea blanco o negro son de 50%)')
     print ('7. Por llenar su imagen entera de puntos de colores random')
     print ('8. Por crear una escena de un cielo con estrellas ')
-    print ('9. Salir')
+    
 
-glCreateWindow(600,400)
+glCreateWindow(400,400)
 
 option = True 
 while option: 
@@ -71,9 +73,9 @@ while option:
         input ("Has ingresado a la opción 1...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
-        glViewPort(0,0,599,399)
-        glColor(1,1,1)
-        glVertex(0,1)
+        glViewPort(0,0,300,300)
+        glColor(255,255,255)
+        glVertex(randint(-1, 1), randint(-1, 1))
         glFinish()
 
     elif menuOption == "2":
@@ -81,10 +83,10 @@ while option:
         input ("Has ingresado a la opción 2...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
-        glViewPort(0,0,599,399)
-        glColor(1,1,1)
-        glVertex(-1,-1)
+        glViewPort(0,0,399,399)
+        glColor(255,255,255)
         glVertex(-1,1)
+        glVertex(-1,-1)
         glVertex(1,-1)
         glVertex(1,1)
         glFinish()
@@ -94,38 +96,66 @@ while option:
         input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
-        glViewPort(0,0,300,300)
-        glColor(1,1,1)
+        glViewPort(0,0,400,400)
+        glColor(255,255,255)
+        img.square(100)
+        glFinish()
     
     elif menuOption == "4":
         print("----")
         input ("Has ingresado a la opción 4...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
+        glViewPort(0,0,400,400)
+        glColor(255,255,255)
+        img.drawLeftLine(10)
+        img.drawRightLine(10)
+        img.drawTopLine(10)
+        img.drawBottonLine(10)
+        glFinish()
     
     elif menuOption == "5":
         print("----")
         input ("Has ingresado a la opción 5...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
+        glViewPort(0,0,400,400)
+        glColor(255,255,255)
+        img.drawSlash()
+        glFinish()
     
     elif menuOption == "6":
         print("----")
         input ("Has ingresado a la opción 6...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
+        glViewPort(0,0,400,400)
+        glColor(255,255,255)
+        img.random()
+        glFinish()
     
     elif menuOption == "7":
         print("----")
-        input ("Has ingresado a la opción 3...\npulsa una tecla para continuar")
+        input ("Has ingresado a la opción 7...\npulsa una tecla para continuar")
         glClearColor(0,0,0)
         glClear()
+        glViewPort(0,0,400,400)
+        glColor(255,255,255)
+        img.randomColor()
+        glFinish()
     
-    elif menuOption == "9":
+    elif menuOption == "8":
+        print("----")
+        input ("Has ingresado a la opción 8...\npulsa una tecla para continuar")
+        glClearColor(0,0,0)
+        glClear()
+        glViewPort(0,0,395,395)
+        glColor(255,255,255)
+        img.stars(200)
+        glFinish()
+        
+    elif menuOption == "0":
         break 
     else: 
         print("")
         input("No has ingresado ninguna opción correcta...\npulsa una tecla para continuar")
-    
-
-

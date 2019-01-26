@@ -1,8 +1,8 @@
-"""
-Librerías Internas 
+"""Librerías Internas 
 """ 
 
 import struct
+import random
 from math import sqrt
 from math import ceil
 from random import randint
@@ -76,6 +76,11 @@ class Bitmap(object):
                 f.write(self.framebuffer[x][y])
         # close file
         f.close()
+    
+    def setColor(self, r,g,b): 
+        self.vr = r
+        self.vg = g 
+        self.vb = b 
 
     # Clear image 
     def clear(self):
@@ -97,19 +102,28 @@ class Bitmap(object):
     def viewPort(self, x, y, width, height):
         if height <= 0 or width <= 0:
             print('Error, el Largo y el Ancho de la imágen deben de ser valores mayores a 0')
+            input()
         elif x< 0 or y < 0 or x > self.width or y > self.height:
             print('Error, Las coordenadas ingresadas (x,y) deben de ser mayores a 0. Además deben de ser menores al ancho y largo de la imagen')
+            input()
         else:  
             self.vpWidth = width
             self.vpHeight = height
             self.vpX = x 
             self.vpY = y 
-    # create new 
+
+    # create new canvas to draw image 
     def vertex(self, x, y): 
+        pointSize = 10
         if self.vpHeight !=  0 or self.vpWidth != 0:
-            localX = round((x+1)*((self.vpWidth)/2) + self.vpX)  
-            localY = round((y+1)* ((self.vpHeight)/2) + self.vpY)
-            self.point(localX,localY)
+            xx = x * ((self.vpWidth - pointSize) / 2)
+            yy = y * ((self.vpHeight - pointSize) / 2)
+            localX = self.vpX+int((self.vpWidth - pointSize)/2)+int(xx)
+            localY = self.vpY+int((self.vpHeight - pointSize)/2)+int(yy)
+            print(x, y, localX, localY)
+            for x in range(pointSize):
+                for y in range(pointSize):
+                    self.point(localX + x, localY + y)
         else: 
             print('Debe de ejecutar glViewPort para obtener un área a gráficar')
 
@@ -117,31 +131,70 @@ class Bitmap(object):
     def point(self, x, y):
         self.framebuffer[y][x] = getColor(self.vr, self.vg, self.vb)
 
-    # Set random color 
+    # Set random white and black
     def random(self):
+        whiteColor = [255, 255, 255]
+        blackColor = [0,0,0]
         for y in range(self.height):
             for x in range(self.width):
+                self.setColor(*random.choice([whiteColor, blackColor]))
                 self.point(x, y)
 
-    # Create lego 
-    def lego(self):  
-        for x in range(70):
-            for y in range(70):
-                self.framebuffer[x][y] = getColor(self.vr, self.vg, self.vb)
+    # Set random color
+    def randomColor(self):
+        for y in range(self.height):
+            for x in range(self.width):
+                self.setColor(randint(0,255), randint(0,255), randint(0,255))
+                self.point(x, y)
 
-    #create horizontal line 
-    def lineHorizontal(self,x,y,lenght,color): 
-        for i in range(lenght):
-            self.vertex(x+i,y)
+    # draw left line
+    def drawLeftLine(self,padding):
+        x = padding
+        for y in range(padding, self.vpHeight - padding):
+            self.point(x, y)
+    
+    # draw rigth line
+    def drawRightLine(self,padding):
+        x = self.vpWidth - padding
+        for y in range(padding, self.vpHeight - padding):
+            self.point(x, y)
 
-    # create vertical line 
-    def lineVertical(self,x,y,lenght,color): 
-        for j in range(lenght):
-            self.vertex(x,y + j)
+    # draw top line
+    def drawTopLine(self,padding):
+        y = padding
+        for x in range(padding, self.vpWidth - padding):
+            self.point(x, y)
+
+    # draw botton line
+    def drawBottonLine(self,padding):
+        y = self.vpHeight - padding
+        for x in range(padding, self.vpWidth - padding):
+            self.point(x, y)
 
     # Create square 
-    def square(self, x,y):
-        for i in range (x, x+200):
-            for j in range (y,y+200):
-                self.vertex(x + i ,y + j)
-    #
+    def square(self, size):
+        cordX = int((self.vpWidth / 2)) - int(size / 2)
+        cordY = int((self.vpWidth / 2)) - int(size / 2)
+        for x in range (cordX, cordX + size):
+            for y in range (cordY, cordY + size):
+                self.point(x,y)
+
+    # draw Slash
+    def drawSlash(self):
+        for cord in range(self.vpX, self.vpWidth):
+            self.point(cord, cord)
+
+    # stars
+    def stars(self, numOfStars):
+        loop = 0
+        while(loop < numOfStars):
+            loop = loop + 1
+            size = randint(1, 3)
+            x = randint(0, self.vpWidth - size - 2)
+            y = randint(0, self.vpHeight - size - 2)
+            self.printStar(x, y, size)
+
+    def printStar(self, x, y, size):
+        for cordX in range(size):
+            for cordY in range(size):
+                self.point(cordX + x, cordY + y)
