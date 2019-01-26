@@ -153,7 +153,7 @@ while option:
         glColor(255,255,255)
         img.stars(200)
         glFinish()
-        
+
     elif menuOption == "0":
         break 
     else: 
